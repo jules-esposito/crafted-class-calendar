@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crafted — Class Calendar | Appellation Healdsburg</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -13,11 +13,13 @@
     --green:    #1E3328;
     --midgreen: #2C4A3A;
     --sage:     #DDE8E2;
-    --cream:    #F5EFE4;
+    --cream:    #F6F1E7;
+    --paper:    #FFFDF8;
     --gold:     #BF9850;
-    --olive:    #4A4A40;
+    --gold-soft:#D8C39A;
     --charcoal: #1C1C1C;
-    --gray-txt: #7A7A6A;
+    --gray-txt: #8A8678;
+    --line:     rgba(30,51,40,0.10);
   }
 
   body {
@@ -25,186 +27,212 @@
     color: var(--charcoal);
     font-family: 'Source Sans 3', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* ── Header / Logo ── */
   .site-header {
     background: var(--green);
     color: white;
-    padding: 36px 48px 30px;
+    padding: 48px 48px 42px;
     text-align: center;
   }
   .logo-lockup { display: inline-block; }
-  .logo-sprig { margin-bottom: 8px; }
+  .logo-sprig { margin-bottom: 10px; opacity: 0.95; }
   .logo-appellation {
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 500;
-    letter-spacing: 0.42em;
-    text-indent: 0.42em;
+    letter-spacing: 0.46em;
+    text-indent: 0.46em;
     color: #fff;
     line-height: 1;
   }
-  .logo-rule { height: 1px; background: var(--gold); width: 100%; margin: 9px 0 7px; }
+  .logo-rule { height: 1px; background: var(--gold); width: 100%; margin: 10px 0 7px; opacity: 0.85; }
   .logo-healdsburg {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 400;
-    letter-spacing: 0.52em;
-    text-indent: 0.52em;
+    letter-spacing: 0.54em;
+    text-indent: 0.54em;
     text-transform: uppercase;
     color: var(--gold);
   }
   .header-title {
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 30px;
+    font-size: 34px;
     font-weight: 600;
-    margin-top: 26px;
+    margin-top: 30px;
     color: #fff;
+    letter-spacing: 0.01em;
   }
   .header-sub {
-    font-size: 13px;
-    letter-spacing: 0.16em;
+    font-size: 12px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.62);
-    margin-top: 8px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 12px;
   }
-  .gold-rule { height: 2px; background: var(--gold); }
+  .gold-rule { height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-soft)); }
 
-  .container { max-width: 1180px; margin: 0 auto; padding: 0 40px 64px; }
+  .container { max-width: 1060px; margin: 0 auto; padding: 0 36px 80px; }
 
   .intro {
     text-align: center;
     font-family: 'EB Garamond', Georgia, serif;
     font-style: italic;
-    font-size: 19px;
+    font-size: 21px;
     color: var(--midgreen);
-    max-width: 760px;
-    margin: 38px auto 4px;
-    line-height: 1.55;
+    max-width: 720px;
+    margin: 44px auto 0;
+    line-height: 1.6;
   }
 
+  /* ── Year tabs (pill) ── */
+  .year-tabs {
+    display: flex; justify-content: center; gap: 4px;
+    margin: 36px auto 0; padding: 5px;
+    background: rgba(30,51,40,0.06);
+    border-radius: 40px; width: fit-content;
+  }
+  .year-tab {
+    font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 600;
+    letter-spacing: 0.14em; color: var(--gray-txt);
+    background: none; border: none; padding: 9px 28px; border-radius: 40px;
+    cursor: pointer; transition: color .2s, background .2s;
+  }
+  .year-tab:hover { color: var(--green); }
+  .year-tab.active { color: #fff; background: var(--green); }
+
   /* ── Month sections ── */
-  .month-block { margin-top: 40px; }
-  .month-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .month-block { margin-top: 56px; }
+  .month-head { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
   .month-name {
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 26px;
+    font-size: 19px;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--green);
     white-space: nowrap;
   }
-  .month-line { flex: 1; height: 1px; background: var(--gold); opacity: 0.55; }
-  .month-dot { color: var(--gold); font-size: 14px; }
+  .month-line { flex: 1; height: 1px; background: var(--line); }
+  .month-dot { color: var(--gold); font-size: 11px; }
 
-  .class-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  /* ── Cards ── */
+  .class-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
   .class-card {
-    background: #fff;
-    border-radius: 4px;
-    padding: 22px 24px 24px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.07);
-    border-left: 4px solid var(--gold);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 30px 32px;
+    box-shadow: 0 1px 2px rgba(30,51,40,0.04);
     display: flex;
     flex-direction: column;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
-  .class-card.craft { border-left-color: var(--green); }
+  .class-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(30,51,40,0.10);
+    border-color: var(--gold-soft);
+  }
   .kicker {
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 6px;
+    margin-bottom: 11px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
   }
+  .kicker::before { content: ""; width: 20px; height: 1.5px; background: var(--gold); display: inline-block; }
   .class-card.craft .kicker { color: var(--midgreen); }
+  .class-card.craft .kicker::before { background: var(--midgreen); }
   .class-name {
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 600;
-    color: var(--charcoal);
-    margin-bottom: 9px;
-    line-height: 1.2;
+    color: var(--green);
+    margin-bottom: 12px;
+    line-height: 1.15;
   }
-  .class-desc { font-size: 14px; color: #3a3a32; line-height: 1.55; }
+  .class-desc { font-size: 14px; color: #4a4a42; line-height: 1.68; }
 
-  /* ── Sponsor / Partner badges ── */
-  .badges { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+  /* ── Partner badges (outline) ── */
+  .badges { display: flex; flex-wrap: wrap; gap: 7px; }
   .badge {
     display: inline-flex;
     align-items: baseline;
-    gap: 7px;
-    padding: 5px 13px;
+    gap: 6px;
+    padding: 5px 12px;
     border-radius: 30px;
-    font-size: 12.5px;
-    font-weight: 700;
+    font-size: 11.5px;
+    font-weight: 600;
     line-height: 1;
+    color: var(--midgreen);
+    background: rgba(191,152,80,0.06);
+    border: 1px solid var(--gold-soft);
   }
-  .badge.sponsor { background: var(--gold); color: var(--green); }
-  .badge.partner { background: var(--sage); color: var(--midgreen); }
   .badge-kicker {
-    font-size: 9px;
+    font-size: 8.5px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    opacity: 0.75;
+    color: var(--gold);
   }
 
-  /* ── Partners / Takeaways meta ── */
+  /* ── Partners / Takeaways / Details meta ── */
   .card-meta {
-    margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid rgba(74,74,64,0.14);
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
     display: flex;
     flex-direction: column;
-    gap: 11px;
+    gap: 14px;
   }
-  .meta-row { display: flex; gap: 14px; align-items: baseline; }
+  .meta-row { display: flex; gap: 16px; align-items: baseline; }
   .meta-label {
-    flex: 0 0 74px;
-    font-size: 10px;
+    flex: 0 0 70px;
+    font-size: 9.5px;
     font-weight: 700;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--gold);
+    padding-top: 2px;
   }
   .class-card.craft .meta-label { color: var(--midgreen); }
   .meta-val { flex: 1; }
-  .meta-val .badges { margin-top: 0; }
-  .meta-val.takeaway { font-size: 13.5px; color: #3a3a32; line-height: 1.5; }
-  .meta-val.details { font-size: 13.5px; color: #2e2e28; font-weight: 600; }
-  .meta-tbd { font-size: 13.5px; font-style: italic; color: var(--gray-txt); }
+  .meta-val.takeaway { font-size: 13.5px; color: #4a4a42; line-height: 1.55; }
+  .meta-val.details { font-size: 13px; color: var(--green); font-weight: 600; letter-spacing: 0.01em; }
+  .meta-tbd { font-size: 13px; font-style: italic; color: var(--gray-txt); }
 
   /* ── Footer ── */
-  .footer { text-align: center; margin-top: 56px; padding-top: 26px; border-top: 1px solid rgba(74,74,64,0.18); }
-  .footer-tag { font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-size: 17px; color: var(--midgreen); }
-  .footer-note { font-size: 11.5px; font-style: italic; color: var(--gray-txt); margin-top: 8px; }
-  .footer-mark { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gray-txt); margin-top: 10px; }
+  .footer { text-align: center; margin-top: 72px; padding-top: 30px; border-top: 1px solid var(--line); }
+  .footer-tag { font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-size: 19px; color: var(--midgreen); }
+  .footer-note { font-size: 11.5px; font-style: italic; color: var(--gray-txt); margin-top: 10px; }
+  .footer-mark { font-size: 10.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray-txt); margin-top: 12px; }
+
+  .year-empty {
+    text-align: center; font-family: 'EB Garamond', Georgia, serif; font-style: italic;
+    font-size: 21px; color: var(--gray-txt); padding: 90px 20px;
+  }
 
   @media (max-width: 760px) {
-    .class-grid { grid-template-columns: 1fr; }
-    .container { padding: 0 22px 48px; }
+    .class-grid { grid-template-columns: 1fr !important; }
+    .container { padding: 0 20px 56px; }
+    .site-header { padding: 38px 24px 32px; }
+    .header-title { font-size: 27px; }
+    .logo-appellation { font-size: 23px; }
   }
   @media print {
     body { background: #fff; }
     .site-header, .class-card, .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .month-block { break-inside: avoid; }
-    .class-card { box-shadow: none; border: 1px solid #e5e0d4; border-left-width: 4px; }
-  }
-  /* ── Year tabs ── */
-  .year-tabs { display:flex; justify-content:center; gap:10px; margin:30px 0 2px; }
-  .year-tab {
-    font-family:'EB Garamond',Georgia,serif; font-size:20px; font-weight:600;
-    letter-spacing:0.08em; color:var(--gray-txt); background:none; border:none;
-    border-bottom:2px solid transparent; padding:6px 20px; cursor:pointer;
-  }
-  .year-tab:hover { color:var(--midgreen); }
-  .year-tab.active { color:var(--green); border-bottom-color:var(--gold); }
-  .year-empty {
-    text-align:center; font-family:'EB Garamond',Georgia,serif; font-style:italic;
-    font-size:20px; color:var(--gray-txt); padding:70px 20px;
+    .class-card { box-shadow: none; }
+    .year-tabs { display: none; }
   }
 </style>
 </head>
