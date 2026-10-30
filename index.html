@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crafted — Class Calendar | Appellation Healdsburg</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:    #1E3328;
+    --midgreen: #2C4A3A;
+    --sage:     #DDE8E2;
+    --cream:    #F5EFE4;
+    --gold:     #BF9850;
+    --olive:    #4A4A40;
+    --charcoal: #1C1C1C;
+    --gray-txt: #7A7A6A;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'Source Sans 3', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Header / Logo ── */
+  .site-header {
+    background: var(--green);
+    color: white;
+    padding: 36px 48px 30px;
+    text-align: center;
+  }
+  .logo-lockup { display: inline-block; }
+  .logo-sprig { margin-bottom: 8px; }
+  .logo-appellation {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+    color: #fff;
+    line-height: 1;
+  }
+  .logo-rule { height: 1px; background: var(--gold); width: 100%; margin: 9px 0 7px; }
+  .logo-healdsburg {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 12.5px;
+    font-weight: 400;
+    letter-spacing: 0.52em;
+    text-indent: 0.52em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .header-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 26px;
+    color: #fff;
+  }
+  .header-sub {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.62);
+    margin-top: 8px;
+  }
+  .gold-rule { height: 2px; background: var(--gold); }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 40px 64px; }
+
+  .intro {
+    text-align: center;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--midgreen);
+    max-width: 760px;
+    margin: 38px auto 4px;
+    line-height: 1.55;
+  }
+
+  /* ── Month sections ── */
+  .month-block { margin-top: 40px; }
+  .month-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .month-name {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    white-space: nowrap;
+  }
+  .month-line { flex: 1; height: 1px; background: var(--gold); opacity: 0.55; }
+  .month-dot { color: var(--gold); font-size: 14px; }
+
+  .class-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .class-card {
+    background: #fff;
+    border-radius: 4px;
+    padding: 22px 24px 24px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.07);
+    border-left: 4px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+  }
+  .class-card.craft { border-left-color: var(--green); }
+  .kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .class-card.craft .kicker { color: var(--midgreen); }
+  .class-name {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 9px;
+    line-height: 1.2;
+  }
+  .class-desc { font-size: 14px; color: #3a3a32; line-height: 1.55; }
+
+  /* ── Sponsor / Partner badges ── */
+  .badges { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 7px;
+    padding: 5px 13px;
+    border-radius: 30px;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .badge.sponsor { background: var(--gold); color: var(--green); }
+  .badge.partner { background: var(--sage); color: var(--midgreen); }
+  .badge-kicker {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  /* ── Partners / Takeaways meta ── */
+  .card-meta {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(74,74,64,0.14);
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+  .meta-row { display: flex; gap: 14px; align-items: baseline; }
+  .meta-label {
+    flex: 0 0 74px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .class-card.craft .meta-label { color: var(--midgreen); }
+  .meta-val { flex: 1; }
+  .meta-val .badges { margin-top: 0; }
+  .meta-val.takeaway { font-size: 13.5px; color: #3a3a32; line-height: 1.5; }
+  .meta-val.details { font-size: 13.5px; color: #2e2e28; font-weight: 600; }
+  .meta-tbd { font-size: 13.5px; font-style: italic; color: var(--gray-txt); }
+
+  /* ── Footer ── */
+  .footer { text-align: center; margin-top: 56px; padding-top: 26px; border-top: 1px solid rgba(74,74,64,0.18); }
+  .footer-tag { font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-size: 17px; color: var(--midgreen); }
+  .footer-note { font-size: 11.5px; font-style: italic; color: var(--gray-txt); margin-top: 8px; }
+  .footer-mark { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gray-txt); margin-top: 10px; }
+
+  @media (max-width: 760px) {
+    .class-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 22px 48px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .site-header, .class-card, .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .month-block { break-inside: avoid; }
+    .class-card { box-shadow: none; border: 1px solid #e5e0d4; border-left-width: 4px; }
+  }
+  /* ── Year tabs ── */
+  .year-tabs { display:flex; justify-content:center; gap:10px; margin:30px 0 2px; }
+  .year-tab {
+    font-family:'EB Garamond',Georgia,serif; font-size:20px; font-weight:600;
+    letter-spacing:0.08em; color:var(--gray-txt); background:none; border:none;
+    border-bottom:2px solid transparent; padding:6px 20px; cursor:pointer;
+  }
+  .year-tab:hover { color:var(--midgreen); }
+  .year-tab.active { color:var(--green); border-bottom-color:var(--gold); }
+  .year-empty {
+    text-align:center; font-family:'EB Garamond',Georgia,serif; font-style:italic;
+    font-size:20px; color:var(--gray-txt); padding:70px 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo-lockup">
+    <svg class="logo-sprig" width="150" height="26" viewBox="0 0 320 70" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#BF9850" stroke-width="2.4" fill="none" stroke-linecap="round">
+        <path d="M14 35 Q160 16 306 35"/>
+        <path d="M64 30 L60 23"/><path d="M112 26 L108 19"/><path d="M162 25 L160 18"/><path d="M212 27 L210 20"/>
+        <path d="M88 40 L86 47"/><path d="M136 43 L136 50"/><path d="M186 42 L186 49"/><path d="M234 39 L236 46"/>
+      </g>
+      <g fill="#BF9850">
+        <ellipse cx="58" cy="22" rx="14" ry="4.8" transform="rotate(-30 58 22)"/>
+        <ellipse cx="108" cy="18" rx="15" ry="5" transform="rotate(-22 108 18)"/>
+        <ellipse cx="160" cy="17" rx="15" ry="5" transform="rotate(-15 160 17)"/>
+        <ellipse cx="210" cy="19" rx="14" ry="4.8" transform="rotate(-24 210 19)"/>
+        <ellipse cx="86" cy="48" rx="14" ry="4.8" transform="rotate(30 86 48)"/>
+        <ellipse cx="136" cy="51" rx="15" ry="5" transform="rotate(20 136 51)"/>
+        <ellipse cx="186" cy="50" rx="15" ry="5" transform="rotate(18 186 50)"/>
+        <ellipse cx="236" cy="47" rx="13" ry="4.8" transform="rotate(28 236 47)"/>
+      </g>
+      <g fill="#F5EFE4"><circle cx="150" cy="34" r="5"/><circle cx="122" cy="37" r="4.2"/><circle cx="178" cy="32" r="4.2"/></g>
+    </svg>
+    <div class="logo-appellation">APPELLATION</div>
+    <div class="logo-rule"></div>
+    <div class="logo-healdsburg">Healdsburg</div>
+  </div>
+  <div class="header-title">Crafted &mdash; Class Calendar</div>
+  <div class="header-sub">Suggested Monthly Programming &nbsp;&middot;&nbsp; August to December 2026</div>
+</div>
+<div class="gold-rule"></div>
+
+<div class="container">
+
+  <p class="intro">Gather with local makers and our own team to craft something real, savor what is in season, and carry home a piece of Sonoma County.</p>
+
+  <div class="year-tabs">
+    <button class="year-tab active" data-year="2026">2026</button>
+    <button class="year-tab" data-year="2027">2027</button>
+  </div>
+
+  <div id="months"></div>
+
+  <div class="footer">
+    <div class="footer-tag">Connection through craft.</div>
+    <div class="footer-note">All classes are subject to applicable tax.</div>
+    <div class="footer-mark">Crafted &nbsp;&middot;&nbsp; Appellation Healdsburg</div>
+  </div>
+
+</div>
+
+<script>
+  // [kicker, name, description, [ [badgeType, partnerName], ... ], takeaway ]
+  const DATA_2026 = [
+    ["August", [
+      ["Culinary", "Beef & Bourbon on the Big Green Egg", "Two and a half hours, three exceptional cuts, and three premium bourbons from the house of WhistlePig. A Big Green Egg expert and Chef Charlie Palmer open with the question every serious cook should be able to answer: what really separates American wagyu from certified black angus, and how do you spot the best cut at the counter? Then you put theory to fire with wagyu flat iron, New York strip, and brisket, whisking together a bourbon marinade worth stealing, and learning to work the coals like you were born to it. A bourbon aficionado leads the tasting, showing you how each expression plays against the beef on your plate. You will leave able to buy beef like a butcher and grill it like a chef.", [["Partner","Big Green Egg"],["Partner","WhistlePig"]], "A Big Green Egg apron, recipes, and the know-how to buy, grill, and pair premium beef like a pro.", "$150 per guest  ·  Friday, August 28, 4-6:30pm  ·  Grange Patio  ·  12 guests"],
+      ["Craft", "Artist in Residence", "Each month's craft is led by our visiting Artist in Residence, with the workshop shaped to their medium. Class concept and details to be announced closer to the date.", [["Partner","Artist in Residence"]], "A one-of-a-kind handmade piece created alongside the visiting artist (details to come)."]
+    ]],
+    ["September", [
+      ["Culinary", "Mixology, Bubbles + Caviar", "The most decadent two hours of your week, set at Beeline. You begin with bubbles, as Joy Sterling of Iron Horse pours her celebrated estate sparkling, paired with a Hog Island oyster crowned with caviar. As you taste, Otto of Tsar Nicoulai introduces you to the briny world of sustainable California caviar, the thread that runs through this pour and the two cocktails to follow. From there it is hands on the shaker: an Appellation mixologist demonstrates two cocktails built to pair with caviar, a perfect martini and a bright, shaken yuzu creation. You mix each one yourself, then taste it against the bite chosen to match. Bubbles, then cocktail, then cocktail, every pour with its own perfect bite. When class winds down the indulgence rolls on, with Iron Horse and caviar specials at Beeline all evening.", [["Partner","Tsar Nicoulai Caviar"],["Partner","Iron Horse"]], "Recipe cards for both cocktails, a discount on Tsar Nicoulai caviar, and an invitation to an exclusive tasting menu at Folia's chef's counter.", "$150 per guest  ·  Saturday, September 12, 2-4pm  ·  Beeline"],
+      ["Craft", "Artist in Residence", "Each month's craft is led by our visiting Artist in Residence, with the workshop shaped to their medium. Class concept and details to be announced closer to the date.", [["Partner","Artist in Residence"]], "A one-of-a-kind handmade piece created alongside the visiting artist (details to come)."]
+    ]],
+    ["October", [
+      ["Culinary", "Little Pizzaiolo Workshop", "A Saturday afternoon spent with our Gozney outdoor ovens and your child. A Gozney pro teaches you to mix and stretch dough from scratch, then shares the tricks that separate a good pie from a great one. You will build your own pizzas with cured meats from Journeyman Meat Co. and cheese from Point Reyes, and fire them in a roaring Gozney oven, while the grown-ups sip pours from Dan Kosta. Two hours, one unforgettable pizza night, and a disposable camera in hand so you and your pizza master in training can capture memories made from scratch here at Appellation.", [["Partner","Gozney"],["Partner","Journeyman Meat Co."],["Partner","Point Reyes"],["Partner","Dan Kosta"]], "A recipe to recreate the magic at home, a disposable camera to capture every flour-dusted moment, and a handcrafted pizza to take home.", "$120 per parent + child pair  ·  Saturday, October 17, 4-6pm  ·  Grange Patio  ·  ages 7 and up  ·  10 pairs"],
+      ["Craft", "Artist in Residence", "Each month's craft is led by our visiting Artist in Residence, with the workshop shaped to their medium. Class concept and details to be announced closer to the date.", [["Partner","Artist in Residence"]], "A one-of-a-kind handmade piece created alongside the visiting artist (details to come)."]
+    ]],
+    ["November", [
+      ["Culinary", "Turkey 101", "The most useful two hours you will spend before the holiday. In an intimate class of just ten, Chef Charlie Palmer leads a hands-on master class in the whole bird, brining it for flavor, breaking it down with confidence, trussing, and roasting it to caramelized perfection. Winemaker Tom Rochioli pours alongside, pairing the turkey with the bottle he would put on his own Thanksgiving table. You roll up your sleeves for every step, and walk away ready to host the holiday like you've done it a hundred times.", [["Partner","Rochioli"],["Partner","Hestan"]], "Hestan cooking supplies, a recipe, and an invitation to the exclusive Rochioli wine dinner at Folia to follow.", "$200 per guest  ·  Thursday, November 19, 4-6pm  ·  Hestan Kitchen at Grange  ·  10 guests"],
+      ["Craft", "Artist in Residence", "Each month's craft is led by our visiting Artist in Residence, with the workshop shaped to their medium. Class concept and details to be announced closer to the date.", [["Partner","Artist in Residence"]], "A one-of-a-kind handmade piece created alongside the visiting artist (details to come)."]
+    ]],
+    ["December", [
+      ["Culinary", "Bûche de Noël", "Master the showstopping centerpiece of the French holiday table. Entirely from scratch, you will bake a tender sponge, whip a silky buttercream, and roll and decorate your own Bûche de Noël. Each step is paired with Mauritson port, the perfect sweet match for chocolate.", [["Partner","Mauritson Port"]], "A complete Bûche de Noël to take home, and the technique to make one from scratch.", "Saturday, December 19, 3-6pm  ·  Hestan Kitchen at Grange"],
+      ["Craft", "Wreathmaking & Mulled Wine", "Cozy up with a mug of spiced mulled wine and the scent of fresh-cut evergreen. You will weave a full, fragrant wreath from locally gathered Sonoma greenery, layering in berries, ribbon, and seasonal accents until it is exactly your style.", [], "A full, fragrant wreath for your door and the know-how to keep it lush all season."]
+    ]]
+  ];
+
+  const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const DATA_2027 = [];
+  const YEARS = {
+    "2026": { data: DATA_2026, sub: "August to December 2026" },
+    "2027": { data: DATA_2027, sub: "2027" }
+  };
+  const root = document.getElementById("months");
+  const subEl = document.querySelector(".header-sub");
+
+  function render(year){
+    const info = YEARS[year];
+    root.innerHTML = "";
+    if(subEl) subEl.innerHTML = "Suggested Monthly Programming &nbsp;&middot;&nbsp; " + info.sub;
+    if(!info.data.length){
+      root.innerHTML = '<div class="year-empty">2027 programming is being crafted. Check back soon.</div>';
+      return;
+    }
+    info.data.forEach(([month, classes]) => {
+    const block = document.createElement("div");
+    block.className = "month-block";
+    const cards = classes.map(([kicker, name, desc, partners, takeaway, details]) => {
+      const badges = (partners || []).map(([type, who]) =>
+        `<span class="badge ${type.toLowerCase()}"><span class="badge-kicker">${esc(type)}</span>${esc(who)}</span>`
+      ).join("");
+      const partnerVal = badges
+        ? `<div class="badges">${badges}</div>`
+        : `<span class="meta-tbd">To be confirmed</span>`;
+      const detailsRow = details
+        ? `<div class="meta-row">
+              <span class="meta-label">Details</span>
+              <div class="meta-val details">${esc(details)}</div>
+            </div>`
+        : "";
+      return `
+        <div class="class-card ${kicker.toLowerCase()}">
+          <div class="kicker">${esc(kicker)}</div>
+          <div class="class-name">${esc(name)}</div>
+          <div class="class-desc">${esc(desc)}</div>
+          <div class="card-meta">
+            ${detailsRow}
+            <div class="meta-row">
+              <span class="meta-label">Partners</span>
+              <div class="meta-val">${partnerVal}</div>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Takeaways</span>
+              <div class="meta-val takeaway">${esc(takeaway || "")}</div>
+            </div>
+          </div>
+        </div>`;
+    }).join("");
+    block.innerHTML = `
+      <div class="month-head">
+        <div class="month-name">${esc(month)}</div>
+        <div class="month-dot">&#10022;</div>
+        <div class="month-line"></div>
+      </div>
+      <div class="class-grid">${cards}</div>`;
+    root.appendChild(block);
+    });
+  }
+
+  document.querySelectorAll(".year-tab").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      document.querySelectorAll(".year-tab").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      render(btn.dataset.year);
+    });
+  });
+  render("2026");
+</script>
+
+</body>
+</html>
