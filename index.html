@@ -259,7 +259,7 @@
 </div>
 
 <script>
-  // [kicker, name, description, [ [badgeType, partnerName], ... ], takeaway ]
+  // [kicker, name, description, [ [badgeType, partnerName], ... ], takeaway, details ]
   const DATA_2026 = [
     ["August", [
       ["Culinary", "Beef & Bourbon on the Big Green Egg", "Two and a half hours, three exceptional cuts, and three premium bourbons from the house of WhistlePig. A Big Green Egg expert and Chef Charlie Palmer open with the question every serious cook should be able to answer: what really separates American wagyu from certified black angus, and how do you spot the best cut at the counter? Then you put theory to fire with wagyu flat iron, New York strip, and brisket, whisking together a bourbon marinade worth stealing, and learning to work the coals like you were born to it. A bourbon aficionado leads the tasting, showing you how each expression plays against the beef on your plate. You will leave able to buy beef like a butcher and grill it like a chef.", [["Partner","Big Green Egg"],["Partner","WhistlePig"]], "A Big Green Egg apron, recipes, and the know-how to buy, grill, and pair premium beef like a pro.", "$150 per guest  ·  Friday, August 28, 4-6:30pm  ·  Grange Patio  ·  12 guests"],
@@ -284,10 +284,29 @@
   ];
 
   const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  const DATA_2027 = [];
+  const DATA_2027 = [
+    ["January", [
+      ["Wellness", "Rooted Rituals: Sound, Skincare & Tea", "Hosted by April Gargiulo, founder of Vintner's Daughter, this restorative Saturday morning opens with a sound bath in the Appellation Spa. April then guides an intentional Vintner's Daughter skincare ritual rooted in mindfulness, botanical ingredients, and purposeful application. Afterward, guests gather for a botanical tea tasting alongside a seasonal bite from Chef Reed and the Appellation culinary team, made with ingredients from the culinary garden.", [["Partner","Vintner's Daughter"],["Partner","Appellation Spa"],["Partner","Local tea company (TBD)"]], "Vintner's Daughter samples and botanical tea sachets. Book an Appellation spa treatment after the event and receive a complimentary foot soak.", "Saturday, January 16, 2027  ·  10am-12pm  ·  Appellation Spa  ·  10-12 guests"]
+    ]],
+    ["February", [
+      ["Culinary", "A Valentine's Pasta Workshop", "An intimate, candlelit cooking experience for couples and friends, led by Chef Reed. Working at Hestan Culinary stations, you will make handmade gnocchi with local mushrooms, seasonal vegetables, and Bellwether Farms cheese, learning proper dough texture, shaping technique, and how to build a restaurant-quality sauce. Jesse Katz of Aperture Cellars pours pairings throughout and shares the inspiration behind each wine, before everyone sits down to enjoy their finished dish together.", [["Partner","Hestan Culinary"],["Partner","Aperture Cellars"],["Partner","Bellwether Farms"],["Partner","Local mushroom grower (TBD)"]], "A decadent chocolate treat to enjoy at home.", "Saturday, February 13, 2027  ·  6-8:30pm  ·  10-12 guests"]
+    ]],
+    ["March", [
+      ["Live Fire", "Embers & Pinot: A Pigs & Pinot Preview", "An intimate preview of Pigs & Pinot, exploring the relationship between pork, smoke, and Pinot Noir. Guests rotate through several Big Green Egg techniques, smoking heritage pork, grilling over direct heat, charring a seasonal condiment, and building a Pinot Noir barbecue glaze, while a featured winemaker leads a comparative Pinot tasting and explains how acidity, fruit, and tannin play against smoke, fat, spice, and sweetness. The workshop closes with a family-style tasting of the pork dishes you prepared.", [["Partner","Big Green Egg"],["Partner","Heritage-pork producer (TBD)"],["Partner","Pinot Noir winemaker (TBD)"]], "An Appellation spice rub and a Big Green Egg apron.", "Saturday, March 13, 2027  ·  4-6pm  ·  10-12 guests"]
+    ]],
+    ["April", [
+      ["Culinary", "Garden-to-Oven Pizza Workshop", "A seasonal pizza class built around Sonoma County's spring harvest. You will learn to stretch and launch dough, manage the heat of a Gozney oven, and build beautifully balanced pizzas, preparing two each from combinations like spring alliums with garden herbs and local cheese, asparagus with preserved lemon and chile, wild mushrooms with Bellwether Farms cheese, or strawberries and cultured cream for dessert. The class includes a tasting of naturally fermented dough at different stages, poured alongside Sonoma rosé or a local Italian-style white.", [["Partner","Gozney"],["Partner","Front Porch Farm or Tookey Farms (TBD)"],["Partner","Central Milling"],["Partner","Local cheesemaker (TBD)"]], "House-fermented pizza dough, a printed recipe, and Appellation pizza seasoning.", "Approximately 2.5 hours  ·  10-12 guests  ·  date TBD"]
+    ]],
+    ["May", [
+      ["Culinary", "The Sonoma Picnic Lab by YETI", "The morning begins with a ride in Appellation's Lincoln house car to the Healdsburg Farmers' Market, where Chef Reed teaches you to spot the best seasonal produce, discover unusual varieties, and talk with local growers as you taste and select ingredients for the day. Back at Appellation, you join the Folia culinary team for a hands-on lesson in the perfect spring vegetable quiche, made with what you gathered. The finished quiches are served at an elevated outdoor picnic with a seasonal salad, local cheese, and a chilled Sonoma wine or garden-inspired zero-proof spritz.", [["Partner","YETI"],["Partner","Healdsburg Farmers' Market vendors"],["Partner","Folia culinary team"]], "A YETI item, such as drinkware or a small picnic accessory.", "Approximately 3 hours  ·  10-12 guests  ·  date TBD"]
+    ]],
+    ["June", [
+      ["Live Fire", "Fire, Salt & the Sonoma Coast", "A live-fire seafood workshop built on the Sonoma Coast's bounty. Guests begin with a lesson in oyster selection, handling, shucking, and safety, then prepare three variations, raw with a garden mignonette, fire-roasted with herb butter, and smoked with fermented chile or preserved citrus. Chef Reed and the culinary team add a live-fire preparation of local fish or shellfish and a seasonal summer vegetable, while a Sonoma Coast winemaker guides pairings across sparkling wine, Chardonnay, and coastal Pinot Noir.", [["Partner","Hog Island Oyster Co."],["Partner","Hestan or Big Green Egg (TBD)"],["Partner","Sonoma Coast winery (TBD)"]], "An oyster knife, a protective glove, and the Appellation mignonette recipe.", "Approximately 2.5 hours  ·  10-12 guests  ·  date TBD"]
+    ]]
+  ];
   const YEARS = {
     "2026": { data: DATA_2026, sub: "August to December 2026" },
-    "2027": { data: DATA_2027, sub: "2027" }
+    "2027": { data: DATA_2027, sub: "January to June 2027" }
   };
   const root = document.getElementById("months");
   const subEl = document.querySelector(".header-sub");
@@ -340,7 +359,7 @@
         <div class="month-dot">&#10022;</div>
         <div class="month-line"></div>
       </div>
-      <div class="class-grid">${cards}</div>`;
+      <div class="class-grid" ${classes.length===1?'style="grid-template-columns:1fr"':''}>${cards}</div>`;
     root.appendChild(block);
     });
   }
