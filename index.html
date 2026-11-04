@@ -161,6 +161,16 @@
   }
   .class-desc { font-size: 14px; color: #4a4a42; line-height: 1.68; }
 
+  /* ── Red flag ── */
+  .class-card.flagged { border-color: #D98C8C; box-shadow: 0 1px 2px rgba(155,35,53,0.10); }
+  .flag {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #FBEAEA; color: #9B2335; border: 1px solid #E2B3B3;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 11px; border-radius: 30px; margin-bottom: 12px;
+  }
+
   /* ── Partner badges (outline) ── */
   .badges { display: flex; flex-wrap: wrap; gap: 7px; }
   .badge {
@@ -287,7 +297,7 @@
 </div>
 
 <script>
-  // [kicker, name, description, [ [badgeType, partnerName], ... ], takeaway, details ]
+  // [kicker, name, description, [ [badgeType, partnerName], ... ], takeaway, details, flag ]
   const DATA_2026 = [
     ["August", [
       ["Culinary", "Beef & Bourbon on the Big Green Egg", "Two and a half hours, three exceptional cuts, and three premium bourbons from the house of WhistlePig. A Big Green Egg expert and Chef Charlie Palmer open with the question every serious cook should be able to answer: what really separates American wagyu from certified black angus, and how do you spot the best cut at the counter? Then you put theory to fire with wagyu flat iron, New York strip, and brisket, whisking together a bourbon marinade worth stealing, and learning to work the coals like you were born to it. A bourbon aficionado leads the tasting, showing you how each expression plays against the beef on your plate. You will leave able to buy beef like a butcher and grill it like a chef.", [["Partner","Big Green Egg"],["Partner","WhistlePig"]], "A Big Green Egg apron, recipes, and the know-how to buy, grill, and pair premium beef like a pro.", "$150 per guest  ·  Friday, August 28, 4-6:30pm  ·  Grange Patio  ·  12 guests"],
@@ -323,7 +333,7 @@
       ["Live Fire", "Embers & Pinot: A Pigs & Pinot Preview", "In preparation for the annual Pigs & Pinot, we invite you to explore the relationship between pork, smoke, and Pinot Noir! Led by Chef Charlie Palmer, guests rotate through several Big Green Egg techniques, smoking heritage pork, grilling over direct heat, charring a seasonal condiment, and building a Pinot Noir barbecue glaze, while a featured winemaker leads a comparative Pinot tasting and explains how acidity, fruit, and tannin play against smoke, fat, spice, and sweetness. The workshop closes with a family-style tasting of the pork dishes you prepared.", [["Partner","Big Green Egg"],["Partner","Heritage-pork producer (TBD)"],["Partner","Innumerable"]], "An Appellation spice rub and a Big Green Egg apron.", "Saturday, March 13, 2027  ·  4-6pm  ·  10-12 guests"]
     ]],
     ["April", [
-      ["Culinary", "Garden-to-Oven Pizza Workshop", "A seasonal pizza class built around Sonoma County's spring harvest. You will learn to stretch and shape dough, manage the heat of a Gozney oven, and build beautifully balanced pizzas, preparing two each from combinations like spring alliums with garden herbs and local cheese, asparagus with preserved lemon and chile, or wild mushrooms with Bellwether Farms cheese. Throughout, you will sip Ra Ra Rosé, poured by winemaker Kara Groom.", [["Partner","Gozney"],["Partner","Front Porch Farm or Tookey Farms (TBD)"],["Partner","Central Milling"],["Partner","Local cheesemaker (TBD)"],["Partner","Ra Ra Rosé (Kara Groom)"]], "House-fermented pizza dough, a printed recipe, and Appellation pizza seasoning.", "Approximately 2.5 hours  ·  10-12 guests  ·  date TBD"]
+      ["Culinary", "Garden-to-Oven Pizza Workshop", "A seasonal pizza class built around Sonoma County's spring harvest. You will learn to stretch and shape dough, manage the heat of a Gozney oven, and build beautifully balanced pizzas, preparing two each from combinations like spring alliums with garden herbs and local cheese, asparagus with preserved lemon and chile, or wild mushrooms with Bellwether Farms cheese. Throughout, you will sip Ra Ra Rosé, poured by winemaker Kara Groom.", [["Partner","Gozney"],["Partner","Front Porch Farm or Tookey Farms (TBD)"],["Partner","Central Milling"],["Partner","Local cheesemaker (TBD)"],["Partner","Ra Ra Rosé (Kara Groom)"]], "House-fermented pizza dough, a printed recipe, and Appellation pizza seasoning.", "Approximately 2.5 hours  ·  10-12 guests  ·  date TBD", "Needs rework: replace garden concept"]
     ]],
     ["May", [
       ["Culinary", "The Sonoma Picnic Lab by YETI", "The morning begins with a ride in Appellation's Lincoln house car to the Healdsburg Farmers' Market, where Chef Reed teaches you to spot the best seasonal produce, discover unusual varieties, and talk with local growers as you taste and select ingredients for the day. Back at Appellation, you join the Folia culinary team in the Hestan demo kitchen for a hands-on lesson in the perfect spring vegetable quiche, made with what you gathered. The finished quiches are served at an elevated outdoor picnic with a seasonal salad, local cheese, and a chilled Sonoma wine or garden-inspired zero-proof spritz.", [["Partner","YETI"],["Partner","Healdsburg Farmers' Market vendors"],["Partner","Folia culinary team"]], "A YETI item, such as drinkware or a small picnic accessory.", "Approximately 3 hours  ·  10-12 guests  ·  date TBD"]
@@ -350,7 +360,8 @@
     info.data.forEach(([month, classes]) => {
     const block = document.createElement("div");
     block.className = "month-block";
-    const cards = classes.map(([kicker, name, desc, partners, takeaway, details]) => {
+    const cards = classes.map(([kicker, name, desc, partners, takeaway, details, flag]) => {
+      const flagRow = flag ? `<div class="flag">&#9873; ${esc(flag)}</div>` : "";
       const badges = (partners || []).map(([type, who]) =>
         `<span class="badge ${type.toLowerCase()}"><span class="badge-kicker">${esc(type)}</span>${esc(who)}</span>`
       ).join("");
@@ -364,7 +375,8 @@
             </div>`
         : "";
       return `
-        <div class="class-card ${kicker.toLowerCase()}">
+        <div class="class-card ${kicker.toLowerCase()}${flag ? ' flagged' : ''}">
+          ${flagRow}
           <div class="kicker">${esc(kicker)}</div>
           <div class="class-name">${esc(name)}</div>
           <div class="class-desc">${esc(desc)}</div>
