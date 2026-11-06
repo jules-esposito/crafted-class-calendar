@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crafted — Class Calendar | Appellation Healdsburg</title>
+<title>Crafted — Class Calendar | Appellation</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
 
@@ -89,24 +89,40 @@
     line-height: 1.6;
   }
 
-  /* ── Year tabs (pill) ── */
-  .year-tabs {
+  /* ── Property tabs (primary) ── */
+  .property-tabs {
     display: flex; justify-content: center; gap: 4px;
-    margin: 36px auto 0; padding: 5px;
+    margin: 34px auto 0; padding: 5px;
     background: rgba(30,51,40,0.06);
     border-radius: 40px; width: fit-content;
   }
+  .property-tab {
+    font-family: 'EB Garamond', Georgia, serif; font-size: 16px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-txt);
+    background: none; border: none; padding: 9px 32px; border-radius: 40px;
+    cursor: pointer; transition: color .2s, background .2s;
+  }
+  .property-tab:hover { color: var(--green); }
+  .property-tab.active { color: #fff; background: var(--green); }
+
+  /* ── Year tabs (secondary) ── */
+  .year-tabs {
+    display: flex; justify-content: center; gap: 4px;
+    margin: 14px auto 0; padding: 4px;
+    background: rgba(30,51,40,0.05);
+    border-radius: 40px; width: fit-content;
+  }
   .year-tab {
-    font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 600;
+    font-family: 'Source Sans 3', sans-serif; font-size: 13.5px; font-weight: 600;
     letter-spacing: 0.14em; color: var(--gray-txt);
-    background: none; border: none; padding: 9px 28px; border-radius: 40px;
+    background: none; border: none; padding: 7px 24px; border-radius: 40px;
     cursor: pointer; transition: color .2s, background .2s;
   }
   .year-tab:hover { color: var(--green); }
-  .year-tab.active { color: #fff; background: var(--green); }
+  .year-tab.active { color: #fff; background: var(--midgreen); }
 
   /* ── Month sections ── */
-  .month-block { margin-top: 56px; }
+  .month-block { margin-top: 52px; }
   .month-head { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
   .month-name {
     font-family: 'EB Garamond', Georgia, serif;
@@ -242,7 +258,7 @@
     .site-header, .class-card, .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .month-block { break-inside: avoid; }
     .class-card { box-shadow: none; }
-    .year-tabs { display: none; }
+    .property-tabs, .year-tabs { display: none; }
   }
 </style>
 </head>
@@ -270,10 +286,10 @@
     </svg>
     <div class="logo-appellation">APPELLATION</div>
     <div class="logo-rule"></div>
-    <div class="logo-healdsburg">Healdsburg</div>
+    <div class="logo-healdsburg" id="propertyLabel">Healdsburg</div>
   </div>
   <div class="header-title">Crafted &mdash; Class Calendar</div>
-  <div class="header-sub">Suggested Monthly Programming &nbsp;&middot;&nbsp; August to December 2026</div>
+  <div class="header-sub">Suggested Monthly Programming</div>
 </div>
 <div class="gold-rule"></div>
 
@@ -281,17 +297,19 @@
 
   <p class="intro">Gather with local makers and our own team to craft something real, savor what is in season, and carry home a piece of Sonoma County.</p>
 
-  <div class="year-tabs">
-    <button class="year-tab active" data-year="2026">2026</button>
-    <button class="year-tab" data-year="2027">2027</button>
+  <div class="property-tabs">
+    <button class="property-tab active" data-property="Healdsburg">Healdsburg</button>
+    <button class="property-tab" data-property="Lodi">Lodi</button>
   </div>
+
+  <div class="year-tabs" id="yearTabs"></div>
 
   <div id="months"></div>
 
   <div class="footer">
     <div class="footer-tag">Connection through craft.</div>
     <div class="footer-note">All classes are subject to applicable tax.</div>
-    <div class="footer-mark">Crafted &nbsp;&middot;&nbsp; Appellation Healdsburg</div>
+    <div class="footer-mark">Crafted &nbsp;&middot;&nbsp; Appellation</div>
   </div>
 
 </div>
@@ -321,7 +339,6 @@
     ]]
   ];
 
-  const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   const DATA_2027 = [
     ["January", [
       ["Wellness", "Rooted Rituals: Sound, Skincare & Tea", "Hosted by April Gargiulo, founder of Vintner's Daughter, this restorative Saturday morning opens with a sound bath in the Appellation Spa led by Appellation Director of Wellness Jill Cerutti. April then guides an intentional Vintner's Daughter skincare ritual rooted in mindfulness, botanical ingredients, and purposeful application. Afterward, guests gather for a botanical tea tasting alongside a seasonal bite from Chef Reed and the Appellation culinary team, made with ingredients from the culinary garden. Guests are invited to continue the experience with a spa booking to follow.", [["Partner","Vintner's Daughter"],["Partner","Appellation Spa"],["Partner","Local tea company (TBD)"]], "Vintner's Daughter samples and botanical tea sachets. Book an Appellation spa treatment after the event and receive a complimentary foot soak.", "Saturday, January 16, 2027  ·  10am-12pm  ·  Appellation Spa  ·  10-12 guests"]
@@ -342,76 +359,123 @@
       ["Live Fire", "Fire, Salt & the Sonoma Coast", "A live-fire seafood workshop built on the Sonoma Coast's bounty. Guests begin with a lesson in oyster selection, handling, shucking, and safety, then prepare three variations, raw with a garden mignonette, fire-roasted with herb butter, and smoked with fermented chile or preserved citrus. Chef Thomas and the culinary team add a live-fire preparation of local fish or shellfish and a seasonal summer vegetable, while Marine Layer guides pairings across sparkling wine, Chardonnay, and coastal Pinot Noir.", [["Partner","Hog Island Oyster Co."],["Partner","Hestan or Big Green Egg (TBD)"],["Partner","Marine Layer"]], "An oyster knife, Hog Island salt, and the Appellation mignonette recipe.", "Approximately 2.5 hours  ·  10-12 guests  ·  date TBD"]
     ]]
   ];
-  const YEARS = {
-    "2026": { data: DATA_2026, sub: "August to December 2026" },
-    "2027": { data: DATA_2027, sub: "January to June 2027" }
+
+  // Lodi 2027 — scaffold; lineup to be confirmed
+  const DATA_L2027 = [
+    ["January", [["Crafted", "To Be Announced", "Lodi Crafted programming for January is in development. Class concept, partners, and details to come.", [], "To be announced", "", "Lineup to be confirmed"]]],
+    ["February", [["Crafted", "To Be Announced", "Lodi Crafted programming for February is in development. Class concept, partners, and details to come.", [], "To be announced", "", "Lineup to be confirmed"]]],
+    ["March", [["Crafted", "To Be Announced", "Lodi Crafted programming for March is in development. Class concept, partners, and details to come.", [], "To be announced", "", "Lineup to be confirmed"]]],
+    ["April", [["Crafted", "To Be Announced", "Lodi Crafted programming for April is in development. Class concept, partners, and details to come.", [], "To be announced", "", "Lineup to be confirmed"]]],
+    ["May", [["Crafted", "To Be Announced", "Lodi Crafted programming for May is in development. Class concept, partners, and details to come.", [], "To be announced", "", "Lineup to be confirmed"]]],
+    ["June", [["Crafted", "To Be Announced", "Lodi Crafted programming for June is in development. Class concept, partners, and details to come.", [], "To be announced", "", "Lineup to be confirmed"]]]
+  ];
+
+  const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+  const PROPERTIES = {
+    "Healdsburg": { label: "Healdsburg", years: {
+      "2026": { data: DATA_2026, sub: "Healdsburg  &middot;  August to December 2026" },
+      "2027": { data: DATA_2027, sub: "Healdsburg  &middot;  January to June 2027" }
+    }},
+    "Lodi": { label: "Lodi", years: {
+      "2027": { data: DATA_L2027, sub: "Lodi  &middot;  January to June 2027" }
+    }}
   };
+
   const root = document.getElementById("months");
   const subEl = document.querySelector(".header-sub");
+  const labelEl = document.getElementById("propertyLabel");
+  const yearTabsEl = document.getElementById("yearTabs");
+  let currentProperty = "Healdsburg";
+  let currentYear = "2026";
 
-  function render(year){
-    const info = YEARS[year];
+  function renderMonths(data, sub){
     root.innerHTML = "";
-    if(subEl) subEl.innerHTML = "Suggested Monthly Programming &nbsp;&middot;&nbsp; " + info.sub;
-    if(!info.data.length){
-      root.innerHTML = '<div class="year-empty">2027 programming is being crafted. Check back soon.</div>';
+    if(subEl) subEl.innerHTML = "Suggested Monthly Programming &nbsp;&middot;&nbsp; " + sub;
+    if(!data || !data.length){
+      root.innerHTML = '<div class="year-empty">Programming is being crafted. Check back soon.</div>';
       return;
     }
-    info.data.forEach(([month, classes]) => {
-    const block = document.createElement("div");
-    block.className = "month-block";
-    const cards = classes.map(([kicker, name, desc, partners, takeaway, details, flag]) => {
-      const flagRow = flag ? `<div class="flag">&#9873; ${esc(flag)}</div>` : "";
-      const badges = (partners || []).map(([type, who]) =>
-        `<span class="badge ${type.toLowerCase()}"><span class="badge-kicker">${esc(type)}</span>${esc(who)}</span>`
-      ).join("");
-      const partnerVal = badges
-        ? `<div class="badges">${badges}</div>`
-        : `<span class="meta-tbd">To be confirmed</span>`;
-      const detailsRow = details
-        ? `<div class="meta-row">
-              <span class="meta-label">Details</span>
-              <div class="meta-val details">${esc(details)}</div>
-            </div>`
-        : "";
-      return `
-        <div class="class-card ${kicker.toLowerCase()}${flag ? ' flagged' : ''}">
-          ${flagRow}
-          <div class="kicker">${esc(kicker)}</div>
-          <div class="class-name">${esc(name)}</div>
-          <div class="class-desc">${esc(desc)}</div>
-          <div class="card-meta">
-            ${detailsRow}
-            <div class="meta-row">
-              <span class="meta-label">Partners</span>
-              <div class="meta-val">${partnerVal}</div>
+    data.forEach(([month, classes]) => {
+      const block = document.createElement("div");
+      block.className = "month-block";
+      const cards = classes.map(([kicker, name, desc, partners, takeaway, details, flag]) => {
+        const flagRow = flag ? `<div class="flag">&#9873; ${esc(flag)}</div>` : "";
+        const badges = (partners || []).map(([type, who]) =>
+          `<span class="badge ${type.toLowerCase()}"><span class="badge-kicker">${esc(type)}</span>${esc(who)}</span>`
+        ).join("");
+        const partnerVal = badges
+          ? `<div class="badges">${badges}</div>`
+          : `<span class="meta-tbd">To be confirmed</span>`;
+        const detailsRow = details
+          ? `<div class="meta-row">
+                <span class="meta-label">Details</span>
+                <div class="meta-val details">${esc(details)}</div>
+              </div>`
+          : "";
+        return `
+          <div class="class-card ${kicker.toLowerCase()}${flag ? ' flagged' : ''}">
+            ${flagRow}
+            <div class="kicker">${esc(kicker)}</div>
+            <div class="class-name">${esc(name)}</div>
+            <div class="class-desc">${esc(desc)}</div>
+            <div class="card-meta">
+              ${detailsRow}
+              <div class="meta-row">
+                <span class="meta-label">Partners</span>
+                <div class="meta-val">${partnerVal}</div>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">Takeaways</span>
+                <div class="meta-val takeaway">${esc(takeaway || "")}</div>
+              </div>
             </div>
-            <div class="meta-row">
-              <span class="meta-label">Takeaways</span>
-              <div class="meta-val takeaway">${esc(takeaway || "")}</div>
-            </div>
-          </div>
-        </div>`;
-    }).join("");
-    block.innerHTML = `
-      <div class="month-head">
-        <div class="month-name">${esc(month)}</div>
-        <div class="month-dot">&#10022;</div>
-        <div class="month-line"></div>
-      </div>
-      <div class="class-grid" ${classes.length===1?'style="grid-template-columns:1fr"':''}>${cards}</div>`;
-    root.appendChild(block);
+          </div>`;
+      }).join("");
+      block.innerHTML = `
+        <div class="month-head">
+          <div class="month-name">${esc(month)}</div>
+          <div class="month-dot">&#10022;</div>
+          <div class="month-line"></div>
+        </div>
+        <div class="class-grid" ${classes.length===1?'style="grid-template-columns:1fr"':''}>${cards}</div>`;
+      root.appendChild(block);
     });
   }
 
-  document.querySelectorAll(".year-tab").forEach(btn=>{
-    btn.addEventListener("click",()=>{
-      document.querySelectorAll(".year-tab").forEach(b=>b.classList.remove("active"));
+  function update(){
+    if(labelEl) labelEl.textContent = PROPERTIES[currentProperty].label;
+    const info = PROPERTIES[currentProperty].years[currentYear];
+    renderMonths(info.data, info.sub);
+  }
+
+  function renderYearTabs(){
+    const years = Object.keys(PROPERTIES[currentProperty].years);
+    if(!years.includes(currentYear)) currentYear = years[0];
+    yearTabsEl.innerHTML = years.map(y =>
+      `<button class="year-tab${y===currentYear?' active':''}" data-year="${y}">${y}</button>`
+    ).join("");
+    yearTabsEl.querySelectorAll(".year-tab").forEach(btn =>
+      btn.addEventListener("click", () => {
+        currentYear = btn.dataset.year;
+        renderYearTabs();
+        update();
+      })
+    );
+  }
+
+  document.querySelectorAll(".property-tab").forEach(btn =>
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".property-tab").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      render(btn.dataset.year);
-    });
-  });
-  render("2026");
+      currentProperty = btn.dataset.property;
+      renderYearTabs();
+      update();
+    })
+  );
+
+  renderYearTabs();
+  update();
 </script>
 
 </body>
