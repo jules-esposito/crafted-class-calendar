@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crafted — Class Calendar | Appellation</title>
+<title>Crafted | Class Calendar | Appellation</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
 
@@ -232,6 +232,10 @@
   .class-card.craft .meta-label { color: var(--midgreen); }
   .meta-val { flex: 1; }
   .meta-val.takeaway { font-size: 13.5px; color: #4a4a42; line-height: 1.55; }
+  .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px 18px; }
+  .detail-cell { display: flex; flex-direction: column; gap: 2px; }
+  .detail-k { font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .detail-v { font-size: 13.5px; color: var(--green); font-weight: 600; line-height: 1.35; }
   .meta-val.details { font-size: 13px; color: var(--green); font-weight: 600; letter-spacing: 0.01em; }
   .meta-tbd { font-size: 13px; font-style: italic; color: var(--gray-txt); }
 
@@ -288,7 +292,7 @@
     <div class="logo-rule"></div>
     <div class="logo-healdsburg" id="propertyLabel">Healdsburg</div>
   </div>
-  <div class="header-title">Crafted &mdash; Class Calendar</div>
+  <div class="header-title">Crafted: Class Calendar</div>
   <div class="header-sub">Suggested Monthly Programming</div>
 </div>
 <div class="gold-rule"></div>
@@ -351,25 +355,25 @@
     ]]
   ];
 
-  // Lodi 2027 — scaffold; lineup to be confirmed
+  // Lodi 2027: scaffold; lineup to be confirmed
   const DATA_L2027 = [
     ["January", [
-      ["Culinary", "The Art of Sourdough", "There is nothing like bread still warm from the oven, and by the end of this morning it will be yours to make at will. Appellation Lodi head baker Chef Anne walks you through the living craft of sourdough in Maison Lodi, from coaxing a tender, open crumb to feeding your starter and turning the discard into crackers, pancakes, and more. Sip a signature Maison beverage as you bake the day away, and leave with recipes straight from the Maison kitchen.", [["Partner","Local roaster (TBD)"]], "A sourdough starter, recipe cards, and coffee grounds from a local roaster.", "$100 per guest  ·  Monday, January 18 (MLK Day)  ·  9-11am  ·  Maison Lodi  ·  10 guests"]
+      ["Culinary", "The Art of Sourdough", "There is nothing like bread still warm from the oven, and by the end of this morning it will be yours to make at will. Appellation Lodi head baker Chef Anne walks you through the living craft of sourdough in Maison Lodi, from coaxing a tender, open crumb to feeding your starter and turning the discard into crackers, pancakes, and more. Sip a signature Maison beverage as you bake the day away, and leave with recipes straight from the Maison kitchen.", [["Partner","Local roaster (TBD)"]], "A sourdough starter, recipe cards, and coffee grounds* from a local roaster. *Confirm whether the grounds are from Peerless.", "$100 per guest  ·  Monday, January 18 (MLK Day)  ·  9-11am  ·  Maison Lodi  ·  10 guests"]
     ]],
     ["February", [
       ["Culinary", "The Aphrodisiac Hour", "Escape the cold, cozy up at the counter as the fire roars, and savor a glass of champagne. Once your palate is whet, in-house mixologist Victoria leads you behind the AH Bar to craft two signature cocktails built to set off caviar, each tasted against curated bites of Tsar Nicoulai caviar and briny Hog Island oysters. Along the way you will master aphrodisiac-inspired infused syrups and botanicals, the kind of flourish that makes a cocktail unforgettable. Consider it the perfect Valentine's date night out.", [["Partner","Southern Glazer's (SGWS)"],["Partner","Tsar Nicoulai Caviar"],["Partner","Hog Island Oyster Co."]], "A bottled infused syrup, recipe cards, and a discount on Tsar Nicoulai caviar.", "$125 per guest  ·  Thursday, February 11  ·  4-6pm  ·  AH Bar  ·  10 guests"]
     ]],
     ["March", [
-      ["Craft", "Chèvre, Wine & Wildflowers", "Unwind the week and gather your favorite people for the ultimate girls' night out, equal parts cheese, wine, and wildflowers. Female-owned Spenker Farms pours their wines and shares their celebrated goat cheese, woven into curated bites by Chef Robert of Americana House, while female-owned Emberish Design leads a hands-on floral arranging class. Leave with a vibrant arrangement, a little buzz, and plenty of color to carry home.", [["Partner","Spenker Farms"],["Partner","Emberish Design"]], "A floral arrangement you made yourself, a goat cheese sample, and a discount for more.", "$125 per guest  ·  Friday, March 12  ·  5-7pm  ·  12 guests"]
+      ["Craft", "Chèvre, Wine & Wildflowers", "Unwind the week and gather your favorite people for the ultimate girls' night out, equal parts cheese, wine, and wildflowers. Female-owned Spenker Farms pours their wines and shares their celebrated goat cheese, woven into curated bites by Chef Robert of Americana House, while female-owned Embellish Design leads a hands-on floral arranging class. Leave with a vibrant arrangement, a little buzz, and plenty of color to carry home.", [["Partner","Spenker Farms"],["Partner","Embellish Design"]], "A floral arrangement you made yourself, a goat cheese sample, and a discount for more.", "$125 per guest  ·  Friday, March 12  ·  5-7pm  ·  12 guests"]
     ]],
     ["April", [
-      ["Culinary", "Pizza Like a Pro", "Chef Robert Ito hands you the keys to the ultimate pizza masterclass, fired in a roaring Gozney oven. You will learn to coax the perfect dough and read the heat like a pro, then Matt Jones of Honest Acres rolls in a bushel of just-picked local produce to crown your own pie. Because pizza was made for wine, you will sip a featured pour throughout, and walk away knowing how to shape, build, fire, and pair like a true pizzaiolo, just in time for summer.", [["Partner","Gozney"],["Partner","Honest Acres"],["Partner","Featured winery (TBD)"]], "Gozney dough, fresh produce from Honest Acres, and the recipe for the perfect sauce.", "$115 per guest  ·  Saturday, April 17  ·  4-6pm  ·  12 guests"]
+      ["Culinary", "Pizza Like a Pro", "Chef Robert Ito hands you the keys to the ultimate pizza masterclass, fired in a roaring Gozney oven. You will learn to coax the perfect dough and read the heat like a pro, then Matt Jones of Honest Acres rolls in a bushel of just-picked local produce to crown your own pie. Because pizza was made for wine, you will sip a featured pour throughout, and walk away knowing how to shape, build, fire, and pair like a true pizzaiolo, just in time for summer.", [["Partner","Gozney"],["Partner","Honest Acres"],["Partner","Featured winery (TBD)"]], "Gozney dough, fresh produce from Honest Acres, and the recipe for the perfect sauce.", "$115 per guest  ·  Saturday, April 17  ·  4-6pm  ·  12 guests", "Select a winery partner"]
     ]],
     ["May", [
       ["Culinary", "Kiddo Cookie Decorating", "We invite parents and littles alike to join us for a fun, all-ages cookie decorating class with pastry chef Anne. Gather in Maison Lodi for an alfresco class on the patio one Saturday morning, with mimosas for mom and fun drinks for the kids, and learn the techniques to create expertly designed spring cookies that taste as good as they look. Take home a box for snacking later and a recipe to keep the fun going.", [], "A box of custom cookies made by you, cookie cutters, and the perfect sugar cookie and icing recipe.", "$120 per parent + child combo (+$40 per additional child)  ·  Saturday, May 8  ·  10am-12pm  ·  Maison Lodi patio"]
     ]],
     ["June", [
-      ["Culinary", "Beef & Bourbon on the Big Green Egg", "Two and a half hours, three exceptional cuts, and three premium bourbons from the house of WhistlePig, and just in time to be the perfect Father's Day gift. A Big Green Egg expert and Chef Charlie Palmer open with the question every serious cook should be able to answer: what really separates American wagyu from certified black angus, and how do you spot the best cut at the counter? Then you put theory to fire with wagyu flat iron, New York strip, and brisket, whisking together a bourbon marinade worth stealing, and learning to work the coals like you were born to it. A bourbon aficionado leads the tasting, showing you how each expression plays against the beef on your plate. You will leave able to buy beef like a butcher and grill it like a chef.", [["Partner","Big Green Egg"],["Partner","WhistlePig"]], "A Big Green Egg apron, recipes, and the know-how to buy, grill, and pair premium beef like a pro.", "Date and venue to be confirmed", "Repeat of the Healdsburg class; confirm Lodi lead, date, and venue"]
+      ["Culinary", "Beef & Bourbon on the Big Green Egg", "Two and a half hours, three exceptional cuts, and three premium bourbons from the house of WhistlePig, and just in time to be the perfect Father's Day gift. A Big Green Egg expert and Chef Charlie Palmer open with the question every serious cook should be able to answer: what really separates American wagyu from certified black angus, and how do you spot the best cut at the counter? Then you put theory to fire with wagyu flat iron, New York strip, and brisket, whisking together a bourbon marinade worth stealing, and learning to work the coals like you were born to it. A bourbon aficionado leads the tasting, showing you how each expression plays against the beef on your plate. You will leave able to buy beef like a butcher and grill it like a chef.", [["Partner","Big Green Egg"],["Partner","WhistlePig"]], "A Big Green Egg apron, recipes, and the know-how to buy, grill, and pair premium beef like a pro.", "Date and venue to be confirmed", "Confirm Lodi lead, date, and venue"]
     ]]
   ];
 
@@ -392,6 +396,24 @@
   let currentProperty = "Healdsburg";
   let currentYear = "2026";
 
+  function detailGrid(str){
+    const parts = str.split(/\s+\u00b7\s+/).map(s => s.trim()).filter(Boolean);
+    const cells = parts.map(s => {
+      let label = "Venue";
+      if(/^\$/.test(s)) label = "Price";
+      else if(/(guests|pairs)$/i.test(s)) label = "Guests";
+      else if(/^ages /i.test(s)) label = "Ages";
+      else if(/\b(mon|tues|wednes|thurs|fri|satur|sun)day\b|date tbd|\bdate\b/i.test(s)) label = "Date";
+      else if(/^approximately|\d\s?(am|pm)/i.test(s)) label = "Time";
+      return {label, s};
+    });
+    const order = ["Date","Time","Price","Venue","Guests","Ages"];
+    cells.sort((a,b) => order.indexOf(a.label) - order.indexOf(b.label));
+    return '<div class="detail-grid">' + cells.map(c =>
+      `<div class="detail-cell${c.label==="Price"?' price':''}"><span class="detail-k">${c.label}</span><span class="detail-v">${esc(c.s)}</span></div>`
+    ).join("") + '</div>';
+  }
+
   function renderMonths(data, sub){
     root.innerHTML = "";
     if(subEl) subEl.innerHTML = "Suggested Monthly Programming &nbsp;&middot;&nbsp; " + sub;
@@ -413,7 +435,7 @@
         const detailsRow = details
           ? `<div class="meta-row">
                 <span class="meta-label">Details</span>
-                <div class="meta-val details">${esc(details)}</div>
+                <div class="meta-val">${detailGrid(details)}</div>
               </div>`
           : "";
         return `
